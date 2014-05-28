@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.pichangetheworld.eminentdomain.cards.Card;
 import com.pichangetheworld.eminentdomain.cards.PlayerDeck;
+import com.pichangetheworld.eminentdomain.states.GameState;
 
 public class Player {
 	
@@ -14,7 +15,7 @@ public class Player {
 	private static int _id;
 
 	private PlayerDeck _deck;
-	private List<Card> _hand;
+	protected List<Card> _hand;
 	
 	private static int _handSize;
 	
@@ -47,7 +48,34 @@ public class Player {
 		}
 	}
 	
+	public void ActionPhase() {
+		// TODO start event listener
+		// when action (or no action) is selected, call PlayAction()
+	}
+	
 	public void PlayAction(Card card) {
-		card.DoAction(this);
+		// TODO
+		// 1. Choose a card in hand (optional)
+		// 	b) Do the action
+		// 	c) Discard the action card from the hand
+		// 	d) Add the action card to the discard pile
+		// 2. Broadcast ACTION_DONE to GameState
+		// 3. Remove event listener
+		
+		if (card != null) {
+			// play the action
+		}
+		
+		GameState.getInstance().ActionDone();
+	}
+	
+	public void PlayRole() {
+		// TODO
+		// 1. Choose a deck in play
+		// 2. Do the role
+		// 3. (Optional) Add any matching roles from hand
+		// 4. Remove any played cards from hand
+		// 5. Add any played cards to the discard pile
+		// 6. Broadcast ROLE_DONE to GameState
 	}
 }

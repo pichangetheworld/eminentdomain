@@ -60,6 +60,18 @@ public class GameManager {
 	}
 	
 	private void StartGame() {
-		GameState.getInstance().init(0);
+		GameState.getInstance().init(_Players.get(0));
+	}
+	
+	public Player getNextPlayer() {
+		return _Players.get(GameState.getInstance().getActivePlayer().Id()+1);
+	}
+	
+	public int getNextPlanetColoniseCost() {
+		return _PlanetDeck.get(0).requiredToColonise();
+	}
+	
+	public int getNextPlanetConquerCost() {
+		return _PlanetDeck.get(0).requiredToConquer();
 	}
 }

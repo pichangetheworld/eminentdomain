@@ -1,5 +1,8 @@
 package com.pichangetheworld.eminentdomain.states;
 
+import com.pichangetheworld.eminentdomain.GameManager;
+import com.pichangetheworld.eminentdomain.player.Player;
+
 // Model class
 // This will be the Model in MVC:
 //	- provide methods for advancing the active player to the next
@@ -7,7 +10,23 @@ package com.pichangetheworld.eminentdomain.states;
 //	- method calls should be made from event listeners
 public class GameState {
 	
-	public int _activePlayerId = -1;
+	public enum Phase {
+		ACTION,
+		ROLE,
+		DISCARD_DRAW {
+			@Override
+			public Phase next() {
+				return ACTION;
+			}
+		};
+		
+		public Phase next() {
+			return values()[ordinal() + 1];
+		}
+	}
+	
+	private Player _activePlayer = null;
+	public Phase _phase = Phase.ACTION;
 	
 	private static GameState _gameState = null;
 	
@@ -20,7 +39,30 @@ public class GameState {
 		return _gameState;
 	}
 	
-	public void init(int activePlayerId) {
-		_activePlayerId = activePlayerId;
+	public Player getActivePlayer() {
+		return _activePlayer;
+	}
+	
+	public void init(Player activePlayer) {
+		_activePlayer = activePlayer;
+	}
+	
+	public void ActionDone() {
+		if (_phase == Phase.ACTION) {
+			_phase = _phase.next();
+		}
+	}
+	
+	public void RoleDone() {
+		if (_phase == Phase.ROLE) {
+			_phase = _phase.next();
+		}
+	}
+	
+	public void TurnDone() {
+		if (_phase == Phase.DISCARD_DRAW) {
+			_activePlayer = GameManager.getInstance().getNextPlayer();
+			_phase = _phase.next();
+		}
 	}
 }
