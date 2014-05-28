@@ -9,6 +9,12 @@ import com.pichangetheworld.eminentdomain.planets.Planet;
 import com.pichangetheworld.eminentdomain.player.Player;
 import com.pichangetheworld.eminentdomain.states.GameState;
 
+// Controller class
+// This will be the Controller in MVC:
+//	- whenever a player finishes their turn, this should
+//			fire the event to tell the model to advance
+//  - also: the controller determines AI turn progression
+
 public class GameManager {
 	private static final int NUM_PLAYERS = 2;
 

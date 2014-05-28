@@ -35,7 +35,7 @@ public class Player {
 		return _name;
 	}
 	
-	private void drawUp() {
+	protected void drawUp() {
 		while (_hand.size() < _handSize) {
 			_hand.add(_deck.draw());
 		}

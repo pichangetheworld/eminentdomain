@@ -1,5 +1,10 @@
 package com.pichangetheworld.eminentdomain.states;
 
+// Model class
+// This will be the Model in MVC:
+//	- provide methods for advancing the active player to the next
+//	- runs through the 'turn process' (rolling dice, moving tokens, etc. relevant here?)
+//	- method calls should be made from event listeners
 public class GameState {
 	
 	public int _activePlayerId = -1;
