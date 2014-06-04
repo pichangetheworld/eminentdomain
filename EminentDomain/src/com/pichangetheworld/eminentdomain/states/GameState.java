@@ -47,19 +47,19 @@ public class GameState {
 		_activePlayer = activePlayer;
 	}
 	
-	public void ActionDone() {
+	public void endActionPhase() {
 		if (_phase == Phase.ACTION) {
 			_phase = _phase.next();
 		}
 	}
 	
-	public void RoleDone() {
+	public void endRolePhase() {
 		if (_phase == Phase.ROLE) {
 			_phase = _phase.next();
 		}
 	}
 	
-	public void TurnDone() {
+	public void endTurn() {
 		if (_phase == Phase.DISCARD_DRAW) {
 			_activePlayer = GameManager.getInstance().getNextPlayer();
 			_phase = _phase.next();

@@ -15,6 +15,7 @@ public class Player {
 	private static int _id;
 
 	private PlayerDeck _deck;
+	private List<Card> _discard;
 	protected List<Card> _hand;
 	
 	private static int _handSize;
@@ -24,6 +25,9 @@ public class Player {
 		_id = id;
 		
 		_deck = new PlayerDeck();
+		_discard = new ArrayList<Card>();
+		_deck.setDiscards(_discard);
+		
 		_hand = new ArrayList<Card>();
 		
 		_handSize = DEFAULT_HANDSIZE;
@@ -52,11 +56,6 @@ public class Player {
 		}
 	}
 	
-	public void actionPhase() {
-		// TODO start event listener
-		// when action (or no action) is selected, call PlayAction()
-	}
-	
 	public void playAction(Card card) {
 		// TODO
 		// 1. Choose a card in hand (optional)
@@ -71,7 +70,7 @@ public class Player {
 			card.doAction(this);
 		}
 		
-		GameState.getInstance().ActionDone();
+		GameState.getInstance().endActionPhase();
 	}
 	
 	public void playRole() {

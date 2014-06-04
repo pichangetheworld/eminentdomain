@@ -14,6 +14,10 @@ public class PlayerDeck {
 		initDefaultDeck();
 	}
 	
+	public void setDiscards(List<Card> discards) {
+		_discards = discards;
+	}
+	
 	private void initDefaultDeck() {
 		_deck.add(new Survey());
 		_deck.add(new Survey());
