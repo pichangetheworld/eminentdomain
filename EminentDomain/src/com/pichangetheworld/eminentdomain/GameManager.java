@@ -30,12 +30,14 @@ public class GameManager {
 		_SurveyDeck = new ArrayList<Card>();
 		_PlanetDeck = new ArrayList<Planet>();
 		_Players = new ArrayList<Player>();
-		
+	}
+	
+	public void init() {
 		initSurveyDeck();
 		
 		initPlayers();
 		
-		StartGame();
+		startGame();
 	}
 
 	public static GameManager getInstance() {
@@ -59,12 +61,12 @@ public class GameManager {
 		}
 	}
 	
-	private void StartGame() {
+	private void startGame() {
 		GameState.getInstance().init(_Players.get(0));
 	}
 	
 	public Player getNextPlayer() {
-		return _Players.get(GameState.getInstance().getActivePlayer().Id()+1);
+		return _Players.get(GameState.getInstance().getActivePlayer().getId()+1);
 	}
 	
 	public int getNextPlanetColoniseCost() {

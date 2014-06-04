@@ -30,10 +30,14 @@ public class Player {
 		drawUp();
 	}
 	
-	public int Id() { return _id; }
+	public int getId() { return _id; }
 	
 	public String getName() {
 		return _name;
+	}
+	
+	public List<Card> getHand() {
+		return _hand;
 	}
 	
 	protected void drawUp() {
@@ -48,12 +52,12 @@ public class Player {
 		}
 	}
 	
-	public void ActionPhase() {
+	public void actionPhase() {
 		// TODO start event listener
 		// when action (or no action) is selected, call PlayAction()
 	}
 	
-	public void PlayAction(Card card) {
+	public void playAction(Card card) {
 		// TODO
 		// 1. Choose a card in hand (optional)
 		// 	b) Do the action
@@ -64,12 +68,13 @@ public class Player {
 		
 		if (card != null) {
 			// play the action
+			card.doAction(this);
 		}
 		
 		GameState.getInstance().ActionDone();
 	}
 	
-	public void PlayRole() {
+	public void playRole() {
 		// TODO
 		// 1. Choose a deck in play
 		// 2. Do the role

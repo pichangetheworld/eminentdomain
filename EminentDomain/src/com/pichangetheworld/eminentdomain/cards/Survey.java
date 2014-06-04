@@ -5,13 +5,18 @@ import com.pichangetheworld.eminentdomain.player.Player;
 public class Survey extends Card {
 
 	@Override
-	public void DoAction(Player active) {
+	public void doAction(Player active) {
 		active.draw(2);
 	}
 
 	@Override
-	public void DoRole() {
+	public void doRole() {
 
+	}
+
+	@Override
+	public Object chooseTarget() {
+		return null;
 	}
 
 }

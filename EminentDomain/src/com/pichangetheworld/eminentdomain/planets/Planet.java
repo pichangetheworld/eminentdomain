@@ -16,13 +16,18 @@ public class Planet {
 	private int _requiredToConquer;
 	
 	private int _coloniseCount;
-	private int _militaryCount;
 	
 	public Planet() {
 		_conquered = false;
+		_coloniseCount = 0;
 	}
 	
-	public boolean Colonise() {
+	public int addColony(int count) {
+		_coloniseCount += count;
+		return _coloniseCount;
+	}
+	
+	public boolean colonise() {
 		if (!_conquered) {
 			if (_coloniseCount >= _requiredToColonise) {
 				_coloniseCount = 0;
@@ -36,11 +41,10 @@ public class Planet {
 		return false;
 	}
 	
-	public boolean Conquer() {
+	public boolean conquer(int militaryCount) {
 		if (!_conquered) {
-			if (_militaryCount >= _requiredToConquer) {
-				_militaryCount = 0;
-				// discard all the ships?
+			if (militaryCount >= _requiredToConquer) {
+				// discard all the ships
 				
 				_conquered = true;
 				return true;
