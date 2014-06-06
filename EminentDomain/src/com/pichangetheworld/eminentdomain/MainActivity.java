@@ -10,7 +10,7 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		GameManager.getInstance().init();
+		GameManager.getInstance().init(2);
 		
 		// draw?
 		

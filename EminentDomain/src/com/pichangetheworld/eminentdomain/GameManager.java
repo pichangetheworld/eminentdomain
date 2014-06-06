@@ -20,7 +20,7 @@ import com.pichangetheworld.eminentdomain.states.GameState;
  */
 
 public class GameManager {
-	private static final int NUM_PLAYERS = 2;
+	private static int _numPlayers = 0;
 
 	private static GameManager _gameManager = null;
 
@@ -44,7 +44,9 @@ public class GameManager {
 		_Players = new ArrayList<Player>();
 	}
 	
-	public void init() {
+	public void init(int numPlayers) {
+		_numPlayers = numPlayers;
+		
 		initDecks();
 		
 		initPlayers();
@@ -61,20 +63,20 @@ public class GameManager {
 	}
 	
 	private void initDecks() {
-		for (int i = 0; i < 20 - 2 * NUM_PLAYERS; ++i) {
+		for (int i = 0; i < 20 - 2 * _numPlayers; ++i) {
 			_SurveyDeck.add(new Survey());
 			_ColoniseDeck.add(new Colonise());
 			_ProduceTradeDeck.add(new ProduceTrade());
 			_ResearchDeck.add(new Research());
 		}
-		for (int i = 0; i < 16 - NUM_PLAYERS; ++i) {
+		for (int i = 0; i < 16 - _numPlayers; ++i) {
 			_WarfareDeck.add(new Warfare());
 		}
 	}
 	
 	private void initPlayers() {
 		_Players.add(new Player("Bob", 0));
-		for (int i = 1; i < NUM_PLAYERS; ++i) {
+		for (int i = 1; i < _numPlayers; ++i) {
 			_Players.add(new Player("AI" + i, i));
 		}
 	}

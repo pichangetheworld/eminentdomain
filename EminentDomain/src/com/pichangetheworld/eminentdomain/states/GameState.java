@@ -25,7 +25,7 @@ public class GameState {
 	}
 	
 	private Player _activePlayer = null;
-	public Phase _phase = Phase.ACTION;
+	private Phase _phase = Phase.ACTION;
 	
 	private static GameState _gameState = null;
 	

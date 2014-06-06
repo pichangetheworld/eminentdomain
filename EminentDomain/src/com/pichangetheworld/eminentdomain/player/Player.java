@@ -94,9 +94,13 @@ public class Player {
 		// 1. Choose a deck in play
 		// 2. Do the role
 		// 3. (Optional) Add any matching roles from hand
-		// 4. Remove any played cards from hand
-		// 5. Add any played cards to the discard pile
-		// 6. set GameState.NEXT_PHASE()
+		// 4 (GameManager) - pass the role to every other player, who can Follow or Dissent
+		// 5. Remove any played cards from hand
+		// 6. Add any played cards to the discard pile
+		
+		// 7. set GameState.NEXT_PHASE()
+
+		GameState.getInstance().endRolePhase();
 	}
 	
 	public void cleanupPhase() {
