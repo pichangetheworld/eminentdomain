@@ -20,9 +20,12 @@ public class Player {
 	
 	private static int _handSize;
 	
+	private static int _numFighters;
+	
 	public Player(String name, int id) {
 		_name = name;
 		_id = id;
+		_numFighters = 0;
 		
 		_deck = new PlayerDeck();
 		_discard = new ArrayList<Card>();
@@ -81,5 +84,17 @@ public class Player {
 		// 4. Remove any played cards from hand
 		// 5. Add any played cards to the discard pile
 		// 6. Broadcast ROLE_DONE to GameState
+	}
+
+	public int getFighterCount() {
+		return _numFighters;
+	}
+	
+	public void addFighters(int count) {
+		_numFighters += count;
+	}
+	
+	public void removeCards(List<Card> cards) {
+		_hand.removeAll(cards); // do not discard them, they are gone from the game
 	}
 }
