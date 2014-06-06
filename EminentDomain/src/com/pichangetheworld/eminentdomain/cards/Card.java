@@ -5,6 +5,4 @@ import com.pichangetheworld.eminentdomain.player.Player;
 public abstract class Card {
 	public abstract void doAction(Player active);
 	public abstract void doRole();
-	
-	public abstract Object chooseTarget();
 }

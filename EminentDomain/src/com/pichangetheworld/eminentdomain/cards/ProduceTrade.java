@@ -7,7 +7,7 @@ public class ProduceTrade extends Card {
 
 	@Override
 	public void doAction(Player active) {
-		Planet target = (Planet) chooseTarget();
+		Planet target = (Planet) active.chooseTarget(Planet.class);
 		// target must already be conquered
 		if (!target._conquered) {
 			// ERROR
@@ -20,11 +20,4 @@ public class ProduceTrade extends Card {
 	public void doRole() {
 
 	}
-
-	@Override
-	public Object chooseTarget() {
-		// TODO: let user choose a valid planet
-		return null;
-	}
-
 }

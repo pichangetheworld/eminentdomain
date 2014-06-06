@@ -11,9 +11,11 @@ public class Research extends Card {
 	public void doAction(Player active) {
 		List<Card> targets = new ArrayList<Card>();
 		for (int i = 0; i < 2; ++i) {
-			Object target = chooseTarget();
+			Object target = active.chooseTarget(Card.class);
 			if (target instanceof Card) {
 				targets.add((Card)target);
+			//} else if (target instanceof Done) {
+			//	break;
 			}
 		}
 		// choose 0, 1, or 2 targets (possibly including self)
@@ -26,11 +28,4 @@ public class Research extends Card {
 		// for now, do nothing
 		return;
 	}
-
-	@Override
-	public Object chooseTarget() {
-		// TODO: let user choose a valid planet
-		return null;
-	}
-
 }

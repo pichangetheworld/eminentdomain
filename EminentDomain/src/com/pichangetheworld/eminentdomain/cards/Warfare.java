@@ -7,7 +7,7 @@ public class Warfare extends Card {
 
 	@Override
 	public void doAction(Player active) {
-		Planet target = (Planet) chooseTarget();
+		Planet target = (Planet) active.chooseTarget(Planet.class);
 		// if you can conquer it, conquer it
 		if (!target.conquer(active.getFighterCount())) {
 			active.addFighters(1);
@@ -17,12 +17,6 @@ public class Warfare extends Card {
 	@Override
 	public void doRole() {
 
-	}
-
-	@Override
-	public Object chooseTarget() {
-		// TODO: let user choose a valid planet
-		return null;
 	}
 
 }

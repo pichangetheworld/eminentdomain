@@ -13,10 +13,4 @@ public class Survey extends Card {
 	public void doRole() {
 
 	}
-
-	@Override
-	public Object chooseTarget() {
-		return null;
-	}
-
 }
