@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.pichangetheworld.eminentdomain.cards.Card;
 import com.pichangetheworld.eminentdomain.cards.PlayerDeck;
-import com.pichangetheworld.eminentdomain.planets.Planet;
 import com.pichangetheworld.eminentdomain.states.GameState;
 
 public class Player {
@@ -66,39 +65,25 @@ public class Player {
 		return null;
 	}
 	
-	public Planet chooseTargetPlanet() {
-		return null;
-	}
-	
-	public Card chooseTargetCard() {
-		return null;
-	}
-	
 	public void actionPhase() {
-		// TODO
 		// 1. Choose a card in hand (optional)
 		// 2. if (card is Card) // else card is skipPhase()
 		// 3. set GameState.NEXT_PHASE()
 		Object obj = chooseTarget(Card.class);
 		if (obj instanceof Card) {
-			playAction((Card)obj);
+			// 	a. Do the action
+			// 	b. Discard the action card from the hand
+			// 	c. Add the action card to the discard pile
+			Card card = (Card)obj;
+			card.doAction(this);
+			_hand.remove(card);
+			_discard.add(card);
 		}
 
 		GameState.getInstance().endActionPhase();
 	}
 	
-	public void playAction(Card card) {
-		// 	1. Do the action
-		// 	2. Discard the action card from the hand
-		// 	3. Add the action card to the discard pile
-		
-		// play the action
-		card.doAction(this);
-		_hand.remove(card);
-		_discard.add(card);
-	}
-	
-	public void playRole() {
+	public void rolePhase() {
 		// TODO
 		// 1. Choose a deck in play
 		// 2. Do the role
@@ -106,6 +91,16 @@ public class Player {
 		// 4. Remove any played cards from hand
 		// 5. Add any played cards to the discard pile
 		// 6. set GameState.NEXT_PHASE()
+	}
+	
+	public void cleanupPhase() {
+		// allow player to discard as many cards as he needs
+		Object obj = chooseTarget(Card.class);
+		while (obj instanceof Card && !_hand.isEmpty()) {
+			_hand.remove(obj);
+			_discard.add((Card)obj);
+		}
+		drawUp();
 	}
 
 	public int getFighterCount() {
