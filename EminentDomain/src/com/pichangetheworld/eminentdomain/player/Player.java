@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.pichangetheworld.eminentdomain.cards.Card;
-import com.pichangetheworld.eminentdomain.cards.PlayerDeck;
 import com.pichangetheworld.eminentdomain.states.GameState;
+import com.pichangetheworld.eminentdomain.util.PlayerDeck;
 
 public class Player {
 	

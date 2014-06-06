@@ -1,8 +1,11 @@
-package com.pichangetheworld.eminentdomain.cards;
+package com.pichangetheworld.eminentdomain.util;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+
+import com.pichangetheworld.eminentdomain.cards.Card;
+import com.pichangetheworld.eminentdomain.cards.Survey;
 
 public class PlayerDeck {
 	private List<Card> _deck;
