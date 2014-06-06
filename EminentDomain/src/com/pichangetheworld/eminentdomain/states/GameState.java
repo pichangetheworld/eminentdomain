@@ -3,11 +3,10 @@ package com.pichangetheworld.eminentdomain.states;
 import com.pichangetheworld.eminentdomain.GameManager;
 import com.pichangetheworld.eminentdomain.player.Player;
 
-// Model class
-// This will be the Model in MVC:
-//	- provide methods for advancing the active player to the next
-//	- runs through the 'turn process' (rolling dice, moving tokens, etc. relevant here?)
-//	- method calls should be made from event listeners
+/*
+ * State class
+ * Keeps track of the current state of the finite state machine
+ */
 public class GameState {
 	
 	public enum Phase {

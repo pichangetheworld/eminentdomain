@@ -7,15 +7,21 @@ import com.pichangetheworld.eminentdomain.cards.Card;
 import com.pichangetheworld.eminentdomain.states.GameState;
 import com.pichangetheworld.eminentdomain.util.PlayerDeck;
 
+/*
+ * Player class
+ * 
+ * Every player, whether AI or human, will have their player class
+ * This keeps track of their deck (and discards), their hand,
+ * 	maximum hand size, and number of fighters
+ */
 public class Player {
 	
 	public static final int DEFAULT_HANDSIZE = 5;
 	
-	private static String _name;
-	private static int _id;
+	private static int _id;	// integer value, i.e. id 0, 1, 2, ...
+	private static String _name; // name, for UI purposes i.e. "Bob", "AI1"
 
 	private PlayerDeck _deck;
-	private List<Card> _discard;
 	protected List<Card> _hand;
 	
 	private static int _handSize;
@@ -28,8 +34,6 @@ public class Player {
 		_numFighters = 0;
 		
 		_deck = new PlayerDeck();
-		_discard = new ArrayList<Card>();
-		_deck.setDiscards(_discard);
 		
 		_hand = new ArrayList<Card>();
 		
@@ -49,7 +53,9 @@ public class Player {
 	
 	protected void drawUp() {
 		while (_hand.size() < _handSize) {
-			_hand.add(_deck.draw());
+			Card card = _deck.draw();
+			if (card == null) break;
+			_hand.add(card);
 		}
 	}
 	
@@ -77,7 +83,7 @@ public class Player {
 			Card card = (Card)obj;
 			card.doAction(this);
 			_hand.remove(card);
-			_discard.add(card);
+			_deck.discard(card);
 		}
 
 		GameState.getInstance().endActionPhase();
@@ -98,7 +104,7 @@ public class Player {
 		Object obj = chooseTarget(Card.class);
 		while (obj instanceof Card && !_hand.isEmpty()) {
 			_hand.remove(obj);
-			_discard.add((Card)obj);
+			_deck.discard((Card)obj);
 		}
 		drawUp();
 	}
