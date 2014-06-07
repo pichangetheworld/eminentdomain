@@ -82,8 +82,11 @@ public class Player {
 			// 	c. Add the action card to the discard pile
 			Card card = (Card)obj;
 			card.doAction(this);
-			_hand.remove(card);
-			_deck.discard(card);
+			// it is possible that the card doesn't exist any more
+			//	e.g. Politics, Research
+			if (_hand.remove(card)) {
+				_deck.discard(card);
+			}
 		}
 
 		GameState.getInstance().endActionPhase();
@@ -121,7 +124,12 @@ public class Player {
 		_numFighters += count;
 	}
 	
-	public void removeCards(List<Card> cards) {
-		_hand.removeAll(cards); // do not discard them, they are gone from the game
+	// function to remove cards from the game
+	public void removeCard(Card card) {
+		_hand.remove(card); // do not discard them, they are gone from the game
+	}
+
+	public void addCard(Card card) {
+		_hand.add(card);
 	}
 }
