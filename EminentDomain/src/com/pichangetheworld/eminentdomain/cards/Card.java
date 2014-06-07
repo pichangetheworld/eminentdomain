@@ -17,7 +17,6 @@ public abstract class Card {
 	}
 	
 	public abstract void doAction(Player active);
-	public abstract void doRole(Player active, boolean isLeader);
 	
 	public abstract int getSymbols(Role role);
 }

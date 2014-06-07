@@ -8,17 +8,20 @@ public class ProduceTrade extends Card {
 	@Override
 	public void doAction(Player active) {
 		Planet target = (Planet) active.chooseTarget(Planet.class);
+		
 		// target must already be conquered
 		if (!target._conquered) {
 			// ERROR
+			return;
 		}
 		
-		// target.produce() or target.trade()
-	}
-
-	@Override
-	public void doRole(Player active, boolean isLeader) {
-
+		// Let the user decide whether to produce or trade
+		Object obj = active.chooseTarget(Role.class);
+		if (obj == Role.PRODUCE) {
+			target.produce(1);
+		} else if (obj == Role.TRADE) {
+			target.trade(1);
+		}
 	}
 
 	@Override

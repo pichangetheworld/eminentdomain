@@ -19,12 +19,6 @@ public class Research extends Card {
 	}
 
 	@Override
-	public void doRole(Player active, boolean isLeader) {
-		// for now, do nothing
-		return;
-	}
-
-	@Override
 	public int getSymbols(Role role) {
 		if (role == Role.RESEARCH) return 1;
 		return 0;

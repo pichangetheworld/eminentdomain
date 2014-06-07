@@ -20,11 +20,6 @@ public class Colonise extends Card {
 	}
 
 	@Override
-	public void doRole(Player active, boolean isLeader) {
-
-	}
-
-	@Override
 	public int getSymbols(Role role) {
 		if (role == Role.COLONISE) return 1;
 		return 0;

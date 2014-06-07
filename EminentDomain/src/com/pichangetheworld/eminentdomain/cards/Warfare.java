@@ -15,11 +15,6 @@ public class Warfare extends Card {
 	}
 
 	@Override
-	public void doRole(Player active, boolean isLeader) {
-
-	}
-
-	@Override
 	public int getSymbols(Role role) {
 		if (role == Role.WARFARE) return 1;
 		return 0;

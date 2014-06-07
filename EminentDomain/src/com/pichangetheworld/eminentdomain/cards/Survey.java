@@ -10,11 +10,6 @@ public class Survey extends Card {
 	}
 
 	@Override
-	public void doRole(Player active, boolean isLeader) {
-
-	}
-
-	@Override
 	public int getSymbols(Role role) {
 		if (role == Role.SURVEY) return 1;
 		return 0;

@@ -22,11 +22,6 @@ public class Politics extends Card {
 	}
 
 	@Override
-	public void doRole(Player active, boolean isLeader) {
-		// not legal
-	}
-
-	@Override
 	public int getSymbols(Role role) {
 		return 0;
 	}

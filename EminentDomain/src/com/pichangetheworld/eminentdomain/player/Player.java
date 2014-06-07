@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.pichangetheworld.eminentdomain.cards.Card;
+import com.pichangetheworld.eminentdomain.cards.Card.Role;
+import com.pichangetheworld.eminentdomain.planets.Planet;
 import com.pichangetheworld.eminentdomain.states.GameState;
 import com.pichangetheworld.eminentdomain.util.PlayerDeck;
 
@@ -18,15 +20,15 @@ public class Player {
 	
 	public static final int DEFAULT_HANDSIZE = 5;
 	
-	private static int _id;	// integer value, i.e. id 0, 1, 2, ...
-	private static String _name; // name, for UI purposes i.e. "Bob", "AI1"
+	protected static int _id;	// integer value, i.e. id 0, 1, 2, ...
+	protected static String _name; // name, for UI purposes i.e. "Bob", "AI1"
+	protected static int _handSize;
 
-	private PlayerDeck _deck;
+	protected PlayerDeck _deck;
 	protected List<Card> _hand;
+	protected List<Planet> _planets;
 	
-	private static int _handSize;
-	
-	private static int _numFighters;
+	protected static int _numFighters;
 	
 	public Player(String name, int id) {
 		_name = name;
@@ -71,6 +73,38 @@ public class Player {
 		return null;
 	}
 	
+	// Choose any cards to match the role
+	public List<Card> matchRole(Role role) {
+		List<Card> collection = new ArrayList<Card>();
+		// when matching, let the player choose any cards in their hand
+		//  such that card.getSymbol(role) > 0
+		
+		// add the card to the collection and remove from hand
+		
+		return collection;
+	}
+	
+	// Choose any cards to match the role, 
+	//  consider any planets with the same symbol,
+	//  and return the total number of symbols seen
+	public int chooseSymbols(Role role) {
+		int total = 0;
+		
+		List<Card> collection = matchRole(role);
+		// when matching, let the player choose any cards in their hand
+		//  such that card.getSymbol(role) > 0
+		
+		for (Card card : collection) {
+			total += card.getSymbols(role);
+		}
+		
+		for (Planet planet : _planets) {
+			total += planet.getSymbols(role);
+		}
+		
+		return total;
+	}
+	
 	public void actionPhase() {
 		// 1. Choose a card in hand (optional)
 		// 2. if (card is Card) // else card is skipPhase()
@@ -84,6 +118,8 @@ public class Player {
 			card.doAction(this);
 			// it is possible that the card doesn't exist any more
 			//	e.g. Politics, Research
+			
+			// XXX What if you Research away a Research, and you have another one in your hand?
 			if (_hand.remove(card)) {
 				_deck.discard(card);
 			}
@@ -97,12 +133,66 @@ public class Player {
 		// 1. Choose a deck in play
 		// 2. Do the role
 		// 3. (Optional) Add any matching roles from hand
-		// 4 (GameManager) - pass the role to every other player, who can Follow or Dissent
+		// 4. (GameManager) - pass the role to every other player, who can Follow or Dissent
 		// 5. Remove any played cards from hand
 		// 6. Add any played cards to the discard pile
+		Role role = (Role) chooseTarget(Role.class);
+		switch(role) {
+		case SURVEY:
+			// draw n-1 planet cards, +1 if this.equals(currentPlayer)
+			int numToDraw = chooseSymbols(Role.SURVEY);
+			if (this.equals(GameState.getInstance().getActivePlayer())) {
+				++numToDraw;
+			}
+			// TODO draw numToDraw planets from the planet deck, choose one
+			
+			break;
+		case WARFARE:
+			if (this.equals(GameState.getInstance().getActivePlayer())) {
+				Planet target = (Planet) chooseTarget(Planet.class);
+				if (target.conquer(this)) {
+					break;
+				}
+				// chance to conquer instead
+			}
+			addFighters(chooseSymbols(Role.WARFARE));
+			break;
+		case COLONISE:
+			Planet target = (Planet) chooseTarget(Planet.class);
+			if (this.equals(GameState.getInstance().getActivePlayer())
+					&& target.colonise(this)) {
+				// chance to conquer instead
+			} else {
+				target.addColony(matchRole(Role.COLONISE));
+			}
+			break;
+		case PRODUCE:
+			int prodSymbols = chooseSymbols(Role.PRODUCE);
+			
+			// produce on all planets
+			for (Planet planet : _planets) {
+				if (prodSymbols <= 0) break;
+				prodSymbols -= planet.produce(prodSymbols);
+			}
+			
+			break;
+		case TRADE:
+			int tradeSymbols = chooseSymbols(Role.TRADE);
+			
+			// trade on all planets
+			for (Planet planet : _planets) {
+				if (tradeSymbols <= 0) break;
+				tradeSymbols -= planet.trade(tradeSymbols);
+			}
+			
+			break;
+		case RESEARCH:
+			// do nothing, for now
+			break;
+		default:
+		}
 		
 		// 7. set GameState.NEXT_PHASE()
-
 		GameState.getInstance().endRolePhase();
 	}
 	
