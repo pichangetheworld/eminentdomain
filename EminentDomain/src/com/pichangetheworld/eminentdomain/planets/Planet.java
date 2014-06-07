@@ -1,6 +1,11 @@
 package com.pichangetheworld.eminentdomain.planets;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.pichangetheworld.eminentdomain.cards.Card;
 import com.pichangetheworld.eminentdomain.cards.Card.Role;
+import com.pichangetheworld.eminentdomain.player.Player;
 
 public class Planet {
 
@@ -13,32 +18,40 @@ public class Planet {
 	
 	public boolean _conquered;
 	public Type _type;
-	
 	private int _requiredToColonise;
 	private int _requiredToConquer;
-	
-	private int _coloniseCount;
-	
+
+	private List<Card> _colonies; // number of colonise symbols under it
+
 	private Role _symbol; // can have no symbol
 	private int _maxProduce; // maximum number that can be produced
 	private int _curGoods; // current number produced
 	
 	public Planet() {
 		_conquered = false;
-		_coloniseCount = 0;
+		_colonies = new ArrayList<Card>();
 	}
 	
-	public int addColony(int count) {
-		_coloniseCount += count;
-		return _coloniseCount;
+	public int addColony(List<Card> colonies) {
+		_colonies.addAll(colonies);
+		int count = 0;
+		for (Card card : _colonies) {
+			count += card.getSymbols(Role.COLONISE);
+		}
+		return count;
 	}
 	
 	// attempt to conquer a planet using colonise
-	public boolean colonise() {
+	public boolean colonise(Player active) {
 		if (!_conquered) {
-			if (_coloniseCount >= _requiredToColonise) {
-				_coloniseCount = 0;
-				// TODO: discard all the colonizes
+			int count = 0;
+			for (Card card : _colonies) {
+				count += card.getSymbols(Role.COLONISE);
+			}
+			if (count >= _requiredToColonise) {
+				for (Card card : _colonies) {
+					active.discardCard(card);
+				}
 				
 				_conquered = true;
 				return true;
@@ -49,10 +62,16 @@ public class Planet {
 	}
 	
 	// attempt to conquer a planet using military power
-	public boolean conquer(int militaryCount) {
+	public boolean conquer(Player active) {
 		if (!_conquered) {
-			if (militaryCount >= _requiredToConquer) {
-				// discard all the ships
+			if (active.getFighterCount() >= _requiredToConquer) {
+				// discard any ships used
+				active.addFighters(-_requiredToConquer);
+				
+				// if any colonies were under this planet discard them
+				for (Card card : _colonies) {
+					active.discardCard(card);
+				}
 				
 				_conquered = true;
 				return true;

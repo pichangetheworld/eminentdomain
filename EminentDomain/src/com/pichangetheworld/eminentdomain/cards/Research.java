@@ -19,7 +19,7 @@ public class Research extends Card {
 	}
 
 	@Override
-	public void doRole() {
+	public void doRole(Player active, boolean isLeader) {
 		// for now, do nothing
 		return;
 	}

@@ -10,7 +10,7 @@ public class Survey extends Card {
 	}
 
 	@Override
-	public void doRole() {
+	public void doRole(Player active, boolean isLeader) {
 
 	}
 

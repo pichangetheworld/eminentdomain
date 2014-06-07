@@ -17,7 +17,7 @@ public class ProduceTrade extends Card {
 	}
 
 	@Override
-	public void doRole() {
+	public void doRole(Player active, boolean isLeader) {
 
 	}
 

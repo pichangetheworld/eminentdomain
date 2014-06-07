@@ -129,7 +129,13 @@ public class Player {
 		_hand.remove(card); // do not discard them, they are gone from the game
 	}
 
+	// add cards to the player's hand
 	public void addCard(Card card) {
 		_hand.add(card);
+	}
+	
+	// add cards to the player's discard pile
+	public void discardCard(Card card) {
+		_deck.discard(card);
 	}
 }
