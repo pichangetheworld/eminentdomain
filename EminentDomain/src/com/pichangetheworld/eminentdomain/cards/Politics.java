@@ -25,4 +25,9 @@ public class Politics extends Card {
 	public void doRole() {
 		// not legal
 	}
+
+	@Override
+	public int getSymbols(Role role) {
+		return 0;
+	}
 }

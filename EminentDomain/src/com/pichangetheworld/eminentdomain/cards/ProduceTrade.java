@@ -20,4 +20,11 @@ public class ProduceTrade extends Card {
 	public void doRole() {
 
 	}
+
+	@Override
+	public int getSymbols(Role role) {
+		if (role == Role.PRODUCE) return 1;
+		else if (role == Role.TRADE) return 1;
+		return 0;
+	}
 }

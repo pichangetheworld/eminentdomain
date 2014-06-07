@@ -34,18 +34,6 @@ public class GameState {
 		}
 	}
 	
-	public enum Role {
-		SURVEY(0),
-		WARFARE(1),
-		COLONISE(2),
-		PRODUCETRADE(3),
-		RESEARCH(4);
-		
-		private final int id;
-	    Role(int id) { this.id = id; }
-	    public int getValue() { return id; }
-	}
-	
 	private Player _activePlayer;
 	private Phase _phase;
 	

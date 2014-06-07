@@ -13,4 +13,10 @@ public class Survey extends Card {
 	public void doRole() {
 
 	}
+
+	@Override
+	public int getSymbols(Role role) {
+		if (role == Role.SURVEY) return 1;
+		return 0;
+	}
 }

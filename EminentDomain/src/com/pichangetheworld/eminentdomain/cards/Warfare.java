@@ -19,4 +19,10 @@ public class Warfare extends Card {
 
 	}
 
+	@Override
+	public int getSymbols(Role role) {
+		if (role == Role.WARFARE) return 1;
+		return 0;
+	}
+
 }

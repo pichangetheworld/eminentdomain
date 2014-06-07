@@ -18,4 +18,10 @@ public class Colonise extends Card {
 	public void doRole() {
 
 	}
+
+	@Override
+	public int getSymbols(Role role) {
+		if (role == Role.COLONISE) return 1;
+		return 0;
+	}
 }
