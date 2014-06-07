@@ -50,8 +50,8 @@ public class PlayerDeck {
 	public void shuffle() {
 		Random r = new Random();
 		for (int i = 0; i < 200; ++i) {
-			int r1 = r.nextInt() % _deck.size(),
-			    r2 = r.nextInt() % _deck.size();
+			int r1 = r.nextInt(_deck.size()),
+			    r2 = r.nextInt(_deck.size());
 			Card temp = _deck.get(r1);
 			_deck.set(r1, _deck.get(r2));
 			_deck.set(r2, temp);
