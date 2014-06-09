@@ -100,4 +100,12 @@ public class GameState {
 			_phase = _phase.next();
 		}
 	}
+	
+	public Planet getNextPlanet(){
+		return _PlanetDeck.remove(0);
+	}
+	
+	public void recyclePlanets(List<Planet> planets){
+		_PlanetDeck.addAll(planets);
+	}
 }

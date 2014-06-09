@@ -144,8 +144,23 @@ public class Player {
 			if (this.equals(GameState.getInstance().getActivePlayer())) {
 				++numToDraw;
 			}
-			// TODO draw numToDraw planets from the planet deck, choose one
-			
+			// draw numToDraw planets from the planet deck, choose one
+			// 0. draw planet cards and put cards to a temp arraylist
+			// 1. show planet cards to player [ showPlanetsToPlayer(array) ]
+			// 2. wait for player to select one
+			// 3. when player selects one, add to player's planets
+			// 4. return remaining cards to bottom of planet stack
+			List<Planet> tempPlanetCollections = new ArrayList<Planet>(numToDraw);
+			for (int i = 0; i < numToDraw; i++) {
+				tempPlanetCollections.add(GameState.getInstance().getNextPlanet());
+			}
+			// XXX showPlanetsToPlayer(tempPlanetCollections);
+			Planet selectedPlanet = (Planet) chooseTarget(Planet.class);
+			_planets.add(selectedPlanet);
+			tempPlanetCollections.remove(selectedPlanet);
+			for (int i = 0; i < numToDraw; i++) {
+				GameState.getInstance().recyclePlanets(tempPlanetCollections);
+			}
 			break;
 		case WARFARE:
 			if (this.equals(GameState.getInstance().getActivePlayer())) {
