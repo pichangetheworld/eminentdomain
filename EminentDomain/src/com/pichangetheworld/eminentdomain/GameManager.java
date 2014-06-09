@@ -2,7 +2,9 @@ package com.pichangetheworld.eminentdomain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import com.pichangetheworld.eminentdomain.planets.Planet;
 import com.pichangetheworld.eminentdomain.player.Player;
 import com.pichangetheworld.eminentdomain.states.GameState;
 
@@ -13,6 +15,9 @@ import com.pichangetheworld.eminentdomain.states.GameState;
  */
 
 public class GameManager {
+	
+	private static final Planet [] STARTING_PLANETS = {};
+	
 	private static int _numPlayers = 0;
 
 	private static GameManager _gameManager = null;
@@ -28,7 +33,14 @@ public class GameManager {
 		
 		initPlayers();
 		
+		// 1. create new list of starter planets 
+		// 2a. for each player, select a planet at random
+		// 2b. add to planer's planet list
+		// 3. remove the selected planet from starter planet list
+		allocateStartingPlanets();
+		
 		startGame();
+	
 	}
 
 	public static GameManager getInstance() {
@@ -43,6 +55,18 @@ public class GameManager {
 		_Players.add(new Player("Bob", 0));
 		for (int i = 1; i < _numPlayers; ++i) {
 			_Players.add(new Player("AI" + i, i));
+		}
+	}
+	
+	private void allocateStartingPlanets() {
+		List<Planet> startingPlanet = new ArrayList<Planet>();
+		for (Planet planet : STARTING_PLANETS) {
+			startingPlanet.add(planet);
+		}
+		
+		Random r = new Random();
+		for (Player player : _Players) {
+			 player.addPlanet(startingPlanet.remove(r.nextInt(startingPlanet.size())));
 		}
 	}
 	

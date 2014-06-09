@@ -39,6 +39,8 @@ public class Player {
 		
 		_hand = new ArrayList<Card>();
 		
+		_planets = new ArrayList<Planet>();
+		
 		_handSize = DEFAULT_HANDSIZE;
 		drawUp();
 	}
@@ -156,7 +158,7 @@ public class Player {
 			}
 			// XXX showPlanetsToPlayer(tempPlanetCollections);
 			Planet selectedPlanet = (Planet) chooseTarget(Planet.class);
-			_planets.add(selectedPlanet);
+			addPlanet(selectedPlanet);
 			tempPlanetCollections.remove(selectedPlanet);
 			for (int i = 0; i < numToDraw; i++) {
 				GameState.getInstance().recyclePlanets(tempPlanetCollections);
@@ -242,5 +244,9 @@ public class Player {
 	// add cards to the player's discard pile
 	public void discardCard(Card card) {
 		_deck.discard(card);
+	}
+	
+	public void addPlanet(Planet planet) {
+		_planets.add(planet);
 	}
 }
