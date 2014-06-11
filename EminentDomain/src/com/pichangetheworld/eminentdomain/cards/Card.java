@@ -3,6 +3,8 @@ package com.pichangetheworld.eminentdomain.cards;
 import com.pichangetheworld.eminentdomain.player.Player;
 
 public abstract class Card {
+	protected boolean _active = false;
+	
 	public enum Role {
 		SURVEY(0),
 		WARFARE(1),
@@ -15,8 +17,14 @@ public abstract class Card {
 	    Role(int id) { this.id = id; }
 	    public int getValue() { return id; }
 	}
-	
-	public abstract void doAction(Player active);
+
+	public void doAction(Player currentPlayer) {
+		this._active = true;
+		action(currentPlayer);
+	}
+	public abstract void action(Player currentPlayer);
+	public boolean isActive() { return _active; };
+	public void doneAction() { _active = false; };
 	
 	public abstract int getSymbols(Role role);
 }

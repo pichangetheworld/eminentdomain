@@ -1,19 +1,24 @@
 package com.pichangetheworld.eminentdomain.cards;
 
+import com.pichangetheworld.eminentdomain.decision.Decision;
 import com.pichangetheworld.eminentdomain.player.Player;
 
 public class Research extends Card {
 
 	@Override
-	public void doAction(Player active) {
+	public void action(Player currentPlayer) {
 		for (int i = 0; i < 2; ++i) {
-			Object target = active.chooseTarget(Card.class);
+			Object target = currentPlayer.chooseTarget(Card.class);
 			if (target instanceof Card) {
 				// remove from the game
-				active.removeCard((Card)target);
+				currentPlayer.removeCard((Card)target);
 				
-			//} else if (target instanceof Done) {
-			//	break;
+				if (target.equals(this))
+					_active = false;
+				
+			} else if (target instanceof Decision) {
+				if (((Decision) target).done) 
+					break;
 			}
 		}
 	}

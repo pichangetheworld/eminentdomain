@@ -6,19 +6,20 @@ import com.pichangetheworld.eminentdomain.util.RoleStack;
 public class Politics extends Card {
 
 	@Override
-	public void doAction(Player active) {
-		RoleStack obj = (RoleStack) active.chooseTarget(RoleStack.class);
+	public void action(Player currentPlayer) {
+		RoleStack obj = (RoleStack) currentPlayer.chooseTarget(RoleStack.class);
 		
 		// ensure that the role stack is not empty
 		Card card = obj.chooseRole();
 		while (card == null) {
 			// choose another stack
-			obj = (RoleStack) active.chooseTarget(RoleStack.class);
+			obj = (RoleStack) currentPlayer.chooseTarget(RoleStack.class);
 			card = obj.chooseRole();
 		}
 		
-		active.addCard(card);
-		active.removeCard(this);
+		currentPlayer.addCard(card);
+		currentPlayer.removeCard(this);
+		_active = false;
 	}
 
 	@Override

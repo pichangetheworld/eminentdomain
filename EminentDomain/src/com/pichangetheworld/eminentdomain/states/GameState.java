@@ -19,6 +19,27 @@ import com.pichangetheworld.eminentdomain.util.RoleStack;
  */
 public class GameState {
 	
+	public enum Variant {
+		TWO_PLAYERS, // 1
+		THREE_PLAYERS, // 1
+		THREE_PLAYERS_LONG, // 2
+		FOUR_PLAYERS; // 2
+		
+		public int numPlayers() {
+			if (this == TWO_PLAYERS)
+				return 2;
+			if (this == FOUR_PLAYERS)
+				return 4;
+			return 3;
+		}
+		
+		public int decksToEnd() {
+			if (this == TWO_PLAYERS || this == THREE_PLAYERS)
+				return 1;
+			return 2;
+		}
+	};
+	
 	public enum Phase {
 		ACTION,
 		ROLE,
@@ -35,6 +56,7 @@ public class GameState {
 	}
 	
 	private Player _activePlayer;
+	private Variant _variant;
 	private Phase _phase;
 	
 	private static List<RoleStack> _roleStacks;
@@ -62,9 +84,11 @@ public class GameState {
 		return _activePlayer;
 	}
 	
-	public void init(Player activePlayer, int numPlayers) {
+	public void init(Player activePlayer, Variant variant) {
 		_activePlayer = activePlayer;
-
+		_variant = variant;
+		int numPlayers = _variant.numPlayers();
+		
 		_roleStacks.add(new RoleStack(Survey.class, 20 - 2 * numPlayers));
 		_roleStacks.add(new RoleStack(Warfare.class, 16 - numPlayers));
 		_roleStacks.add(new RoleStack(Colonise.class, 20 - 2 * numPlayers));
@@ -107,5 +131,15 @@ public class GameState {
 	
 	public void recyclePlanets(List<Planet> planets){
 		_PlanetDeck.addAll(planets);
+	}
+	
+	public boolean isFinished() {
+		int emptyStacks = 0;
+		for (RoleStack stack : _roleStacks) {
+			if (stack.isEmpty()) {
+				++emptyStacks;
+			}
+		}
+		return (emptyStacks >= _variant.decksToEnd());
 	}
 }

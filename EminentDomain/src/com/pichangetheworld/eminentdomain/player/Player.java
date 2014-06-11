@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.pichangetheworld.eminentdomain.cards.Card;
 import com.pichangetheworld.eminentdomain.cards.Card.Role;
+import com.pichangetheworld.eminentdomain.decision.Decision;
 import com.pichangetheworld.eminentdomain.planets.Planet;
 import com.pichangetheworld.eminentdomain.states.GameState;
 import com.pichangetheworld.eminentdomain.util.PlayerDeck;
@@ -118,11 +119,12 @@ public class Player {
 			// 	c. Add the action card to the discard pile
 			Card card = (Card)obj;
 			card.doAction(this);
+			
 			// it is possible that the card doesn't exist any more
 			//	e.g. Politics, Research
-			
-			// XXX What if you Research away a Research, and you have another one in your hand?
-			if (_hand.remove(card)) {
+			if (card.isActive()) {
+				card.doneAction();
+				_hand.remove(card);
 				_deck.discard(card);
 			}
 		}
@@ -130,16 +132,25 @@ public class Player {
 		GameState.getInstance().endActionPhase();
 	}
 	
-	// The leader will choose the role
+	// The leader will choose the role and then doRole(role)
 	// The GameManager will then pass the role to every other player, who can Follow or Dissent
 	public Role chooseRole() {
-		// 1. Choose a deck in play
 		return (Role) chooseTarget(Role.class);
 	}
 	
 	// This assumes that the role has already been chosen by the leader
+	//  this is called for each player who is not the leader
 	public void rolePhase(Role role) {
-		// TODO
+		Decision decision = (Decision) chooseTarget(Decision.class);
+		
+		if (decision.dissent) {
+			draw(1);
+		} else if (decision.follow) {
+			doRole(role);
+		}
+	}
+	
+	public void doRole(Role role) {
 		// 2. Do the role
 		// 3. (Optional) Add any matching roles from hand
 		// 5. Remove any played cards from hand
@@ -213,9 +224,6 @@ public class Player {
 			break;
 		default:
 		}
-		
-		// 7. set GameState.NEXT_PHASE()
-		GameState.getInstance().endRolePhase();
 	}
 	
 	public void cleanupPhase() {
@@ -226,6 +234,8 @@ public class Player {
 			_deck.discard((Card)obj);
 		}
 		drawUp();
+		
+		GameState.getInstance().endTurn();
 	}
 
 	public int getFighterCount() {

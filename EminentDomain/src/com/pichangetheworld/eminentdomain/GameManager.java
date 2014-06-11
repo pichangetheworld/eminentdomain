@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.pichangetheworld.eminentdomain.cards.Card.Role;
 import com.pichangetheworld.eminentdomain.planets.Planet;
 import com.pichangetheworld.eminentdomain.player.Player;
 import com.pichangetheworld.eminentdomain.states.GameState;
@@ -40,7 +41,31 @@ public class GameManager {
 		allocateStartingPlanets();
 		
 		startGame();
-	
+		
+		Player cur = GameState.getInstance().getActivePlayer();
+		Role role;
+		while (!(GameState.getInstance().isFinished() &&
+				cur.equals(_Players.get(0)))) {
+			// play the game!
+			// 1. do action
+			// 2. then do role
+			// 3. then cleanup
+			// 4. then pass the turn on
+			cur.actionPhase();
+			
+			role = cur.chooseRole();
+			cur.doRole(role);
+			// XXX we should do them in order
+			for (Player p : _Players) {
+				if (!p.equals(cur))
+					p.rolePhase(role);
+			}
+			
+			cur.cleanupPhase();
+			
+			// cleanupPhase() will end the current player's turn
+			cur = GameState.getInstance().getActivePlayer();
+		}
 	}
 
 	public static GameManager getInstance() {
@@ -71,7 +96,7 @@ public class GameManager {
 	}
 	
 	private void startGame() {
-		GameState.getInstance().init(_Players.get(0), _Players.size());
+		GameState.getInstance().init(_Players.get(0), GameState.Variant.TWO_PLAYERS);
 	}
 	
 	public Player getNextPlayer() {

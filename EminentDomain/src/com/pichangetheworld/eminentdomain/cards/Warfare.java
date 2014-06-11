@@ -6,11 +6,11 @@ import com.pichangetheworld.eminentdomain.player.Player;
 public class Warfare extends Card {
 
 	@Override
-	public void doAction(Player active) {
-		Planet target = (Planet) active.chooseTarget(Planet.class);
+	public void action(Player currentPlayer) {
+		Planet target = (Planet) currentPlayer.chooseTarget(Planet.class);
 		// if you can conquer it, conquer it
-		if (!target.conquer(active)) {
-			active.addFighters(1);
+		if (!target.conquer(currentPlayer)) {
+			currentPlayer.addFighters(1);
 		}
 	}
 

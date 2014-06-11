@@ -6,8 +6,8 @@ import com.pichangetheworld.eminentdomain.player.Player;
 public class ProduceTrade extends Card {
 
 	@Override
-	public void doAction(Player active) {
-		Planet target = (Planet) active.chooseTarget(Planet.class);
+	public void action(Player currentPlayer) {
+		Planet target = (Planet) currentPlayer.chooseTarget(Planet.class);
 		
 		// target must already be conquered
 		if (!target._conquered) {
@@ -16,7 +16,7 @@ public class ProduceTrade extends Card {
 		}
 		
 		// Let the user decide whether to produce or trade
-		Object obj = active.chooseTarget(Role.class);
+		Object obj = currentPlayer.chooseTarget(Role.class);
 		if (obj == Role.PRODUCE) {
 			target.produce(1);
 		} else if (obj == Role.TRADE) {

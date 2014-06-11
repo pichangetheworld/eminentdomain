@@ -50,4 +50,8 @@ public class RoleStack {
 			return null;
 		return _deck.remove(0);
 	}
+	
+	public boolean isEmpty() {
+		return _deck.isEmpty();
+	}
 }
