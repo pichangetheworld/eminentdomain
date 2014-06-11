@@ -130,15 +130,20 @@ public class Player {
 		GameState.getInstance().endActionPhase();
 	}
 	
-	public void rolePhase() {
-		// TODO
+	// The leader will choose the role
+	// The GameManager will then pass the role to every other player, who can Follow or Dissent
+	public Role chooseRole() {
 		// 1. Choose a deck in play
+		return (Role) chooseTarget(Role.class);
+	}
+	
+	// This assumes that the role has already been chosen by the leader
+	public void rolePhase(Role role) {
+		// TODO
 		// 2. Do the role
 		// 3. (Optional) Add any matching roles from hand
-		// 4. (GameManager) - pass the role to every other player, who can Follow or Dissent
 		// 5. Remove any played cards from hand
 		// 6. Add any played cards to the discard pile
-		Role role = (Role) chooseTarget(Role.class);
 		switch(role) {
 		case SURVEY:
 			// draw n-1 planet cards, +1 if this.equals(currentPlayer)
