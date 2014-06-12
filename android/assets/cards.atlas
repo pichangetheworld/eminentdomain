@@ -1,0 +1,47 @@
+cards.png
+size: 1006,813
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+colonize
+  rotate: false
+  xy: 438, 436
+  size: 283, 377
+  orig: 283, 377
+  offset: 0, 0
+  index: -1
+planet
+  rotate: false
+  xy: 2, 399
+  size: 434, 414
+  orig: 434, 414
+  offset: 0, 0
+  index: -1
+research
+  rotate: false
+  xy: 572, 63
+  size: 283, 371
+  orig: 283, 371
+  offset: 0, 0
+  index: -1
+survey
+  rotate: false
+  xy: 723, 440
+  size: 283, 373
+  orig: 283, 373
+  offset: 0, 0
+  index: -1
+tradeproduce
+  rotate: false
+  xy: 287, 25
+  size: 283, 372
+  orig: 283, 372
+  offset: 0, 0
+  index: -1
+warfare
+  rotate: false
+  xy: 2, 2
+  size: 283, 395
+  orig: 283, 395
+  offset: 0, 0
+  index: -1
