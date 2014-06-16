@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.pichangetheworld.eminentdomain.GameManager;
-import com.pichangetheworld.eminentdomain.cards.Colonise;
+import com.pichangetheworld.eminentdomain.cards.Colonize;
 import com.pichangetheworld.eminentdomain.cards.ProduceTrade;
 import com.pichangetheworld.eminentdomain.cards.Research;
 import com.pichangetheworld.eminentdomain.cards.Survey;
@@ -91,7 +91,7 @@ public class GameState {
 		
 		_roleStacks.add(new RoleStack(Survey.class, 20 - 2 * numPlayers));
 		_roleStacks.add(new RoleStack(Warfare.class, 16 - numPlayers));
-		_roleStacks.add(new RoleStack(Colonise.class, 20 - 2 * numPlayers));
+		_roleStacks.add(new RoleStack(Colonize.class, 20 - 2 * numPlayers));
 		_roleStacks.add(new RoleStack(ProduceTrade.class, 20 - 2 * numPlayers));
 		_roleStacks.add(new RoleStack(Research.class, 20 - 2 * numPlayers));
 	}

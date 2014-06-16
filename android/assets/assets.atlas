@@ -1,0 +1,62 @@
+
+assets.png
+size: 1006,945
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+button_down
+  rotate: false
+  xy: 2, 68
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+button_up
+  rotate: false
+  xy: 2, 2
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+colonize
+  rotate: false
+  xy: 438, 568
+  size: 283, 377
+  orig: 283, 377
+  offset: 0, 0
+  index: -1
+planet
+  rotate: false
+  xy: 2, 531
+  size: 434, 414
+  orig: 434, 414
+  offset: 0, 0
+  index: -1
+research
+  rotate: false
+  xy: 572, 195
+  size: 283, 371
+  orig: 283, 371
+  offset: 0, 0
+  index: -1
+survey
+  rotate: false
+  xy: 723, 572
+  size: 283, 373
+  orig: 283, 373
+  offset: 0, 0
+  index: -1
+tradeproduce
+  rotate: false
+  xy: 287, 157
+  size: 283, 372
+  orig: 283, 372
+  offset: 0, 0
+  index: -1
+warfare
+  rotate: false
+  xy: 2, 134
+  size: 283, 395
+  orig: 283, 395
+  offset: 0, 0
+  index: -1

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import com.pichangetheworld.eminentdomain.cards.Card;
-import com.pichangetheworld.eminentdomain.cards.Colonise;
+import com.pichangetheworld.eminentdomain.cards.Colonize;
 import com.pichangetheworld.eminentdomain.cards.ProduceTrade;
 import com.pichangetheworld.eminentdomain.cards.Research;
 import com.pichangetheworld.eminentdomain.cards.Survey;
@@ -30,8 +30,8 @@ public class PlayerDeck {
 		_deck.add(new Survey());
 		_deck.add(new Survey());
 		_deck.add(new Warfare());
-		_deck.add(new Colonise());
-		_deck.add(new Colonise());
+		_deck.add(new Colonize());
+		_deck.add(new Colonize());
 		_deck.add(new ProduceTrade());
 		_deck.add(new ProduceTrade());
 		_deck.add(new Research());

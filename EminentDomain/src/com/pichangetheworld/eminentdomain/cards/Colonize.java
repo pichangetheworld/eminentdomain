@@ -6,7 +6,7 @@ import java.util.List;
 import com.pichangetheworld.eminentdomain.planets.Planet;
 import com.pichangetheworld.eminentdomain.player.Player;
 
-public class Colonise extends Card {
+public class Colonize extends Card {
 
 	@Override
 	public void action(Player currentPlayer) {
