@@ -43,11 +43,8 @@ public class GameScreen implements Screen {
 		this._game = game;
 
 		// Initialise Textures
-		textureAtlas = new TextureAtlas(Gdx.files.internal("assets.atlas")); // **
-																				// button
-																				// atlas
-																				// image
-																				// **//
+		// ** button atlas image ** //
+		textureAtlas = new TextureAtlas(Gdx.files.internal("assets.atlas"));
 
 		buttonSkin = new Skin();
 		buttonSkin.addRegions(textureAtlas); // ** skins for on and off **//
@@ -89,18 +86,13 @@ public class GameScreen implements Screen {
 	}
 
 	private void addButtons() {
-		TextButtonStyle style = new TextButtonStyle(); // ** Button properties
-														// **//
+		TextButtonStyle style = new TextButtonStyle(); // ** Button properties **//
 		style.up = buttonSkin.getDrawable("button_up");
 		style.down = buttonSkin.getDrawable("button_down");
 		style.font = new BitmapFont();
-
-		TextButton showHandButton = new TextButton("Show Hand", style); // **
-																		// Button
-																		// text
-																		// and
-																		// style
-																		// **//
+		
+		// ** Button text and style **//
+		TextButton showHandButton = new TextButton("Show Hand", style);
 		showHandButton.setPosition(10, 10); // ** Button location **//
 		showHandButton.setHeight(200); // ** Button Height **//
 		showHandButton.setWidth(100); // ** Button Width **//
@@ -123,15 +115,8 @@ public class GameScreen implements Screen {
 			}
 		});
 
-		TextButton drawCardButton = new TextButton("Draw Card", style); // **
-																		// Button
-																		// text
-																		// and
-																		// style
-																		// **//
-		drawCardButton.setPosition(_stage.getWidth() - 120, 10); // ** Button
-																	// location
-																	// **//
+		TextButton drawCardButton = new TextButton("Draw Card", style);
+		drawCardButton.setPosition(_stage.getWidth() - 120, 10);
 		drawCardButton.setHeight(200); // ** Button Height **//
 		drawCardButton.setWidth(100); // ** Button Width **//
 		drawCardButton.addListener(new InputListener() {
