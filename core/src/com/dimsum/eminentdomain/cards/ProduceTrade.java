@@ -1,9 +1,12 @@
 package com.dimsum.eminentdomain.cards;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.dimsum.eminentdomain.planets.Planet;
 import com.dimsum.eminentdomain.player.Player;
 
 public class ProduceTrade extends Card {
+	private static final Texture texture = new Texture(Gdx.files.internal("producetrade.png"));
 
 	@Override
 	public void action(Player currentPlayer) {
@@ -29,5 +32,10 @@ public class ProduceTrade extends Card {
 		if (role == Role.PRODUCE) return 1;
 		else if (role == Role.TRADE) return 1;
 		return 0;
+	}
+
+	@Override
+	public Texture getTexture() {
+		return texture;
 	}
 }

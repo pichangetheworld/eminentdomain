@@ -1,9 +1,12 @@
 package com.dimsum.eminentdomain.cards;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.dimsum.eminentdomain.planets.Planet;
 import com.dimsum.eminentdomain.player.Player;
 
 public class Warfare extends Card {
+	private static final Texture texture = new Texture(Gdx.files.internal("warfare.png"));
 
 	@Override
 	public void action(Player currentPlayer) {
@@ -20,4 +23,8 @@ public class Warfare extends Card {
 		return 0;
 	}
 
+	@Override
+	public Texture getTexture() {
+		return texture;
+	}
 }

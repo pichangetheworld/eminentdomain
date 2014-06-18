@@ -15,7 +15,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.dimsum.eminentdomain.EminentDomainGame;
 import com.dimsum.eminentdomain.cards.Card;
-import com.dimsum.eminentdomain.cards.Colonize;
+import com.dimsum.eminentdomain.cards.Warfare;
 
 public class GameScreen implements Screen {
 	private static final float cw = 192; // card width
@@ -24,24 +24,22 @@ public class GameScreen implements Screen {
 	private static float sh_offset; // stage height
 
 	private final EminentDomainGame _game;
+	private Stage _stage;
 
 	private Group _hand;
 	private boolean _showHand;
-	private Stage _stage;
 
 	// TextureAtlas (for drawing)
 	private TextureAtlas textureAtlas; // ** image of buttons **//
 	private Skin buttonSkin; // ** images are used as skins of the button **//
 
 	public GameScreen(final EminentDomainGame game) {
-		_stage = new Stage();
-		Gdx.input.setInputProcessor(_stage);
-
-		sw_offset = _stage.getWidth();
-		sh_offset = (_stage.getHeight() - ch) / 2;
-
 		this._game = game;
 
+		this._stage = this._game.getStage();
+		sw_offset = _stage.getWidth();
+		sh_offset = (_stage.getHeight() - ch) / 2;
+		
 		// Initialise Textures
 		// ** button atlas image ** //
 		textureAtlas = new TextureAtlas(Gdx.files.internal("assets.atlas"));
@@ -69,7 +67,7 @@ public class GameScreen implements Screen {
 	}
 
 	private void drawCard() {
-		Card a = new Colonize();
+		Card a = new Warfare();
 		a.setSize(cw, ch);
 		_hand.addActor(a);
 
@@ -140,11 +138,8 @@ public class GameScreen implements Screen {
 	@Override
 	public void dispose() {
 		// _textureAtlas.dispose();
-		_stage.dispose();
 		textureAtlas.dispose();
 		buttonSkin.dispose();
-		_game.batch.dispose();
-
 	}
 
 	@Override

@@ -1,19 +1,17 @@
 package com.dimsum.eminentdomain;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.dimsum.eminentdomain.screens.MainMenuScreen;
 
 public class EminentDomainGame extends Game {
-	public SpriteBatch batch;
-	public BitmapFont font;
+	private Stage _stage;
 	
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-        font = new BitmapFont();
-        font.setScale(4);
+		_stage = new Stage();
+		Gdx.input.setInputProcessor(_stage);
         
         this.setScreen(new MainMenuScreen(this));
 	}
@@ -25,7 +23,10 @@ public class EminentDomainGame extends Game {
 
 	@Override
 	public void dispose() {
-		batch.dispose();
-		font.dispose();
+		_stage.dispose();
+	}
+	
+	public Stage getStage() {
+		return _stage;
 	}
 }

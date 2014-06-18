@@ -3,41 +3,52 @@ package com.dimsum.eminentdomain.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Label.LabelStyle;
 import com.dimsum.eminentdomain.EminentDomainGame;
 
 public class MainMenuScreen implements Screen {
 
-    private final EminentDomainGame _game;
+	private final EminentDomainGame _game;
 
-    private OrthographicCamera _camera;
+	private Stage _stage;
 
-    public MainMenuScreen(final EminentDomainGame game) {
-        _game = game;
+	public MainMenuScreen(final EminentDomainGame game) {
+		this._game = game;
 
-        _camera = new OrthographicCamera();
-        _camera.setToOrtho(false, 800, 480);
-    }
+		this._stage = _game.getStage();
 
-    @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(0, 0, 0.2f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		LabelStyle labelStyle = new LabelStyle(); // ** Button properties **//
+		labelStyle.font = new BitmapFont();
 
-        _camera.update();
-        _game.batch.setProjectionMatrix(_camera.combined);
+		Label label = new Label("Eminent Domain", labelStyle);
+		label.setFontScale(4f);
+		label.setPosition((_stage.getWidth() - 4 * label.getWidth()) / 2,
+				_stage.getHeight() / 2);
+		this._stage.addActor(label);
 
-        _game.batch.begin();
-        _game.font.draw(_game.batch, "Eminent Domain", 150, 300);
-        _game.font.draw(_game.batch, "Tap anywhere to begin!", 100, 200);
-        _game.batch.end();
+		Label label2 = new Label("Tap anywhere to begin!", labelStyle);
+		label2.setFontScale(4f);
+		label2.setPosition((_stage.getWidth() - 4 * label2.getWidth()) / 2,
+				_stage.getHeight() / 2 - 100);
+		this._stage.addActor(label2);
+	}
 
-        if (Gdx.input.isTouched()) {
-            _game.setScreen(new GameScreen(_game));
-            dispose();
-        }
-    }
-    
+	@Override
+	public void render(float delta) {
+		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+		_stage.act(Gdx.graphics.getDeltaTime());
+		_stage.draw();
+
+		if (Gdx.input.isTouched()) {
+			_stage.clear();
+			_game.setScreen(new GameScreen(_game));
+			dispose();
+		}
+	}
+
 	@Override
 	public void resize(int width, int height) {
 	}
