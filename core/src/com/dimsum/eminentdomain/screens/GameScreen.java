@@ -14,8 +14,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.dimsum.eminentdomain.EminentDomainGame;
+import com.dimsum.eminentdomain.GameManager;
 import com.dimsum.eminentdomain.cards.Card;
 import com.dimsum.eminentdomain.cards.Warfare;
+import com.dimsum.eminentdomain.states.GameState;
 
 public class GameScreen implements Screen {
 	private static final float cw = 192; // card width
@@ -26,7 +28,7 @@ public class GameScreen implements Screen {
 	private final EminentDomainGame _game;
 	private Stage _stage;
 
-	private Group _hand;
+//	private Group _hand;
 	private boolean _showHand;
 
 	// TextureAtlas (for drawing)
@@ -50,12 +52,15 @@ public class GameScreen implements Screen {
 		_showHand = false;
 		addButtons();
 
-		_hand = new Group();
-		_hand.setPosition(0, -0.87f * ch);
-		drawCard();
-		drawCard();
+		GameManager.getInstance().init(2);
+		GameState.getInstance().getActivePlayer().renderToScreen(_stage);
+		
+//		_hand = new Group();
+//		_hand.setPosition(0, -0.87f * ch);
+//		drawCard();
+//		drawCard();
 
-		_stage.addActor(_hand);
+//		_stage.addActor(_hand);
 	}
 
 	@Override
@@ -66,22 +71,22 @@ public class GameScreen implements Screen {
 		_stage.draw();
 	}
 
-	private void drawCard() {
-		Card a = new Warfare();
-		a.setSize(cw, ch);
-		_hand.addActor(a);
-
-		int n = _hand.getChildren().size;
-		int i = 0;
-		for (Actor actor : _hand.getChildren()) {
-			if (n < sw_offset / cw) {
-				actor.setPosition(sw_offset / 2 - ((float) n / 2 - i) * cw, 0);
-			} else {
-				actor.setPosition(i * (sw_offset - cw) / (n - 1), 0);
-			}
-			++i;
-		}
-	}
+//	private void drawCard() {
+//		Card a = new Warfare();
+//		a.setSize(cw, ch);
+//		_hand.addActor(a);
+//
+//		int n = _hand.getChildren().size;
+//		int i = 0;
+//		for (Actor actor : _hand.getChildren()) {
+//			if (n < sw_offset / cw) {
+//				actor.setPosition(sw_offset / 2 - ((float) n / 2 - i) * cw, 0);
+//			} else {
+//				actor.setPosition(i * (sw_offset - cw) / (n - 1), 0);
+//			}
+//			++i;
+//		}
+//	}
 
 	private void addButtons() {
 		TextButtonStyle style = new TextButtonStyle(); // ** Button properties **//
@@ -99,11 +104,11 @@ public class GameScreen implements Screen {
 					int pointer, int button) {
 				Gdx.app.log("show hand", "Pressed");
 				_showHand = !_showHand;
-				if (_showHand) {
-					_hand.setPosition(0, sh_offset);
-				} else {
-					_hand.setPosition(0, -0.87f * ch);
-				}
+//				if (_showHand) {
+//					_hand.setPosition(0, sh_offset);
+//				} else {
+//					_hand.setPosition(0, -0.87f * ch);
+//				}
 				return true;
 			}
 
@@ -127,7 +132,7 @@ public class GameScreen implements Screen {
 			public void touchUp(InputEvent event, float x, float y,
 					int pointer, int button) {
 				Gdx.app.log("draw card", "Released");
-				drawCard();
+//				drawCard();
 			}
 		});
 

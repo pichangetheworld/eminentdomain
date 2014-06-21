@@ -9,7 +9,7 @@ public class Survey extends Card {
 
 	@Override
 	public void action(Player currentPlayer) {
-		currentPlayer.draw(2);
+		currentPlayer.drawCard(2);
 	}
 
 	@Override

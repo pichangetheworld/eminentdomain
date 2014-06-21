@@ -3,6 +3,7 @@ package com.dimsum.eminentdomain.player;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.dimsum.eminentdomain.cards.Card;
 import com.dimsum.eminentdomain.cards.Card.Role;
 import com.dimsum.eminentdomain.planets.Planet;
@@ -30,6 +31,8 @@ public class Player {
 	
 	protected static int _numFighters;
 	
+	private PlayerGraphics _graphics; 
+	
 	public Player(String name, int id) {
 		_name = name;
 		_id = id;
@@ -42,7 +45,14 @@ public class Player {
 		_planets = new ArrayList<Planet>();
 		
 		_handSize = DEFAULT_HANDSIZE;
+		
+		_graphics = new PlayerGraphics(this);
+		
 		drawUp();
+	}
+	
+	public void renderToScreen(final Stage stage) {
+		_graphics.draw(stage);
 	}
 	
 	public int getId() { return _id; }
@@ -63,7 +73,7 @@ public class Player {
 		}
 	}
 	
-	public void draw(int n) {
+	public void drawCard(int n) {
 		for (int i = 0; i < n; ++i) {
 			_hand.add(_deck.draw());
 		}
@@ -144,7 +154,7 @@ public class Player {
 		//XXX
 		String choice = new String();
 		if (choice.compareTo("dissent") == 0) {
-			draw(1);
+			drawCard(1);
 		} else if (choice.compareTo("follow") == 0) {
 			doRole(role);
 		}

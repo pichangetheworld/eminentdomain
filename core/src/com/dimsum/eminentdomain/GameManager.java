@@ -17,7 +17,10 @@ import com.dimsum.eminentdomain.states.GameState;
 
 public class GameManager {
 	
-	private static final Planet [] STARTING_PLANETS = {};
+	private static final Planet [] STARTING_PLANETS = {
+		new Planet(), new Planet()
+	};
+	
 	
 	private static int _numPlayers = 0;
 
@@ -43,29 +46,30 @@ public class GameManager {
 		startGame();
 		
 		Player cur = GameState.getInstance().getActivePlayer();
+		
 		Role role;
-		while (!(GameState.getInstance().isFinished() &&
-				cur.equals(_Players.get(0)))) {
-			// play the game!
-			// 1. do action
-			// 2. then do role
-			// 3. then cleanup
-			// 4. then pass the turn on
-			cur.actionPhase();
-			
-			role = cur.chooseRole();
-			cur.doRole(role);
-			// XXX we should do them in order
-			for (Player p : _Players) {
-				if (!p.equals(cur))
-					p.rolePhase(role);
-			}
-			
-			cur.cleanupPhase();
-			
-			// cleanupPhase() will end the current player's turn
-			cur = GameState.getInstance().getActivePlayer();
-		}
+//		while (!(GameState.getInstance().isFinished() &&
+//				cur.equals(_Players.get(0)))) {
+//			// play the game!
+//			// 1. do action
+//			// 2. then do role
+//			// 3. then cleanup
+//			// 4. then pass the turn on
+//			cur.actionPhase();
+//			
+//			role = cur.chooseRole();
+//			cur.doRole(role);
+//			// XXX we should do them in order
+//			for (Player p : _Players) {
+//				if (!p.equals(cur))
+//					p.rolePhase(role);
+//			}
+//			
+//			cur.cleanupPhase();
+//			
+//			// cleanupPhase() will end the current player's turn
+//			cur = GameState.getInstance().getActivePlayer();
+//		}
 	}
 
 	public static GameManager getInstance() {
