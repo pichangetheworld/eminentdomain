@@ -46,6 +46,10 @@ public class PlayerDeck {
 		_discards.add(discard);
 	}
 	
+	public List<Card> getDiscardPile() {
+		return _discards;
+	}
+	
 	// Shuffles the deck
 	public void shuffle() {
 		Random r = new Random();

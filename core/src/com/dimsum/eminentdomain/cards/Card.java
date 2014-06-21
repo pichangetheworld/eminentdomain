@@ -5,8 +5,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.dimsum.eminentdomain.player.Player;
 
-public abstract class Card extends Actor {
+public class Card extends Actor {
 	protected boolean _active = false;
+	public static final float cw = 192; // card width
+	public static final float ch = 256; // card height
 	
 	public enum Role {
 		SURVEY(0),
@@ -20,17 +22,25 @@ public abstract class Card extends Actor {
 	    Role(int id) { this.id = id; }
 	    public int getValue() { return id; }
 	}
+	
+	public Card() {
+		this.setSize(cw, ch);
+	}
 
 	public void doAction(Player currentPlayer) {
 		this._active = true;
 		action(currentPlayer);
 	}
-	public abstract void action(Player currentPlayer);
+	public void action(Player currentPlayer) {}
 	public boolean isActive() { return _active; };
 	public void doneAction() { _active = false; };
 	
-	public abstract int getSymbols(Role role);
-	public abstract Texture getTexture();
+	public int getSymbols(Role role) {
+		return 0;
+	}
+	public Texture getTexture() {
+		return null;
+	}
 	
 	@Override
 	public void draw(Batch batch, float alpha) {

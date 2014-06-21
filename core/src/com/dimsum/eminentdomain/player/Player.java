@@ -65,6 +65,10 @@ public class Player {
 		return _hand;
 	}
 	
+	public Card getTopDiscard() {
+		return _deck.getDiscardPile().isEmpty() ? null : _deck.getDiscardPile().get(_deck.getDiscardPile().size()-1);
+	}
+	
 	protected void drawUp() {
 		while (_hand.size() < _handSize) {
 			Card card = _deck.draw();
