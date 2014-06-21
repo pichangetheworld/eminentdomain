@@ -51,7 +51,7 @@ public class GameScreen implements Screen {
 		addButtons();
 
 		_hand = new Group();
-		_hand.setPosition(0, -5 * cw / 4);
+		_hand.setPosition(0, -0.87f * ch);
 		drawCard();
 		drawCard();
 
@@ -102,7 +102,7 @@ public class GameScreen implements Screen {
 				if (_showHand) {
 					_hand.setPosition(0, sh_offset);
 				} else {
-					_hand.setPosition(0, -5 * cw / 4);
+					_hand.setPosition(0, -0.87f * ch);
 				}
 				return true;
 			}

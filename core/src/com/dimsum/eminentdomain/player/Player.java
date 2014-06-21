@@ -69,13 +69,13 @@ public class Player {
 		}
 	}
 
+	// TODO let the player choose an object
 	public Object chooseTarget(Class<?> validClass) {
-		// let the player choose an object
 		// ensure that the object is of the same class as validClass or DONE
 		return null;
 	}
 	
-	// Choose any cards to match the role
+	// TODO Choose any cards to match the role
 	public List<Card> matchRole(Role role) {
 		List<Card> collection = new ArrayList<Card>();
 		// when matching, let the player choose any cards in their hand
