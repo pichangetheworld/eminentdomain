@@ -12,6 +12,7 @@ public class Card extends Actor {
 	public static final float ch = 256; // card height
 	
 	private Texture _texture = new Texture(Gdx.files.internal("blank_card.png"));
+	public static final Texture _texture_back = new Texture(Gdx.files.internal("card_back.png"));
 	
 	public enum Role {
 		SURVEY(0),

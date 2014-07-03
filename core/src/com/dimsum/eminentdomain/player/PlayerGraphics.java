@@ -1,13 +1,10 @@
 package com.dimsum.eminentdomain.player;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.dimsum.eminentdomain.cards.Card;
 
 public class PlayerGraphics {
-
 	private Player _player;
 	private Group _hand;
 	
@@ -21,8 +18,7 @@ public class PlayerGraphics {
 		this._showHand = false;
 
 		_hand = new Group();
-		_discardSprite = _player.getTopDiscard();
-		if (_discardSprite == null) _discardSprite = new Card();
+		_discardSprite = new Card();
 		_deckSprite = new Card();
 	}
 	
@@ -64,12 +60,11 @@ public class PlayerGraphics {
 		
 		if (_player.getTopDiscard() != null) {
 			_discardSprite.setTexture(_player.getTopDiscard().getTexture());
-		} // TODO: add placeholder for empty discard pile
+		}
 		_discardSprite.setPosition(stage.getWidth() - 300, stage.getHeight()/2);
 		
-		
 		if (!_player.isDeckEmpty()) {
-			_deckSprite.setTexture(new Texture(Gdx.files.internal("card_back.png")));
+			_deckSprite.setTexture(Card._texture_back);
 		}
 		_deckSprite.setPosition(stage.getWidth() - 300, stage.getHeight()/2 - Card.ch);
 	}
