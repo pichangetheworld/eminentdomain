@@ -5,8 +5,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -15,21 +13,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.dimsum.eminentdomain.EminentDomainGame;
 import com.dimsum.eminentdomain.GameManager;
-import com.dimsum.eminentdomain.cards.Card;
-import com.dimsum.eminentdomain.cards.Warfare;
+import com.dimsum.eminentdomain.player.Player;
 import com.dimsum.eminentdomain.states.GameState;
 
 public class GameScreen implements Screen {
-	private static final float cw = 192; // card width
-	private static final float ch = 256; // card height
-	private static float sw_offset; // stage width minus offset for button
-	private static float sh_offset; // stage height
 
 	private final EminentDomainGame _game;
 	private Stage _stage;
-
-//	private Group _hand;
-	private boolean _showHand;
 
 	// TextureAtlas (for drawing)
 	private TextureAtlas textureAtlas; // ** image of buttons **//
@@ -39,8 +29,6 @@ public class GameScreen implements Screen {
 		this._game = game;
 
 		this._stage = this._game.getStage();
-		sw_offset = _stage.getWidth();
-		sh_offset = (_stage.getHeight() - ch) / 2;
 		
 		// Initialise Textures
 		// ** button atlas image ** //
@@ -49,18 +37,9 @@ public class GameScreen implements Screen {
 		buttonSkin = new Skin();
 		buttonSkin.addRegions(textureAtlas); // ** skins for on and off **//
 
-		_showHand = false;
 		addButtons();
 
 		GameManager.getInstance().init(2);
-		GameState.getInstance().getActivePlayer().renderToScreen(_stage);
-		
-//		_hand = new Group();
-//		_hand.setPosition(0, -0.87f * ch);
-//		drawCard();
-//		drawCard();
-
-//		_stage.addActor(_hand);
 	}
 
 	@Override
@@ -68,25 +47,10 @@ public class GameScreen implements Screen {
 		// WIPE THE FIELD
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		_stage.act(Gdx.graphics.getDeltaTime());
+
+		GameState.getInstance().getActivePlayer().renderToScreen(_stage);
 		_stage.draw();
 	}
-
-//	private void drawCard() {
-//		Card a = new Warfare();
-//		a.setSize(cw, ch);
-//		_hand.addActor(a);
-//
-//		int n = _hand.getChildren().size;
-//		int i = 0;
-//		for (Actor actor : _hand.getChildren()) {
-//			if (n < sw_offset / cw) {
-//				actor.setPosition(sw_offset / 2 - ((float) n / 2 - i) * cw, 0);
-//			} else {
-//				actor.setPosition(i * (sw_offset - cw) / (n - 1), 0);
-//			}
-//			++i;
-//		}
-//	}
 
 	private void addButtons() {
 		TextButtonStyle style = new TextButtonStyle(); // ** Button properties **//
@@ -103,12 +67,7 @@ public class GameScreen implements Screen {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
 				Gdx.app.log("show hand", "Pressed");
-				_showHand = !_showHand;
-//				if (_showHand) {
-//					_hand.setPosition(0, sh_offset);
-//				} else {
-//					_hand.setPosition(0, -0.87f * ch);
-//				}
+				GameState.getInstance().getActivePlayer().toggleShowHand();
 				return true;
 			}
 
@@ -118,7 +77,7 @@ public class GameScreen implements Screen {
 			}
 		});
 
-		TextButton drawCardButton = new TextButton("Draw Card", style);
+		TextButton drawCardButton = new TextButton("Discard Card", style);
 		drawCardButton.setPosition(_stage.getWidth() - 120, 10);
 		drawCardButton.setHeight(200); // ** Button Height **//
 		drawCardButton.setWidth(100); // ** Button Width **//
@@ -126,6 +85,9 @@ public class GameScreen implements Screen {
 			public boolean touchDown(InputEvent event, float x, float y,
 					int pointer, int button) {
 				Gdx.app.log("draw card", "Pressed");
+				Player p = GameState.getInstance().getActivePlayer();
+				if (!p.getHand().isEmpty())
+					p.discardCard(p.getHand().remove(0));
 				return true;
 			}
 

@@ -39,9 +39,7 @@ public class Player {
 		_numFighters = 0;
 		
 		_deck = new PlayerDeck();
-		
 		_hand = new ArrayList<Card>();
-		
 		_planets = new ArrayList<Planet>();
 		
 		_handSize = DEFAULT_HANDSIZE;
@@ -53,6 +51,10 @@ public class Player {
 	
 	public void renderToScreen(final Stage stage) {
 		_graphics.draw(stage);
+	}
+	
+	public void toggleShowHand() {
+		_graphics.toggleShowHand();
 	}
 	
 	public int getId() { return _id; }
