@@ -50,6 +50,10 @@ public class PlayerDeck {
 		return _discards;
 	}
 	
+	public boolean getDeckEmpty() {
+		return _deck.isEmpty();
+	}
+	
 	// Shuffles the deck
 	public void shuffle() {
 		Random r = new Random();

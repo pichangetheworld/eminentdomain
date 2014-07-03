@@ -1,5 +1,6 @@
 package com.dimsum.eminentdomain.cards;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -9,6 +10,8 @@ public class Card extends Actor {
 	protected boolean _active = false;
 	public static final float cw = 192; // card width
 	public static final float ch = 256; // card height
+	
+	private Texture _texture = new Texture(Gdx.files.internal("blank_card.png"));
 	
 	public enum Role {
 		SURVEY(0),
@@ -38,8 +41,13 @@ public class Card extends Actor {
 	public int getSymbols(Role role) {
 		return 0;
 	}
+	
 	public Texture getTexture() {
-		return null;
+		return _texture;
+	}
+
+	public void setTexture(Texture texture) {
+		this._texture = texture;
 	}
 	
 	@Override

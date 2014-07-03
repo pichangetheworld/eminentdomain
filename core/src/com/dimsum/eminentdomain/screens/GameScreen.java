@@ -40,6 +40,7 @@ public class GameScreen implements Screen {
 		addButtons();
 
 		GameManager.getInstance().init(2);
+		GameState.getInstance().getActivePlayer().addToStage(_stage);
 	}
 
 	@Override
@@ -48,6 +49,7 @@ public class GameScreen implements Screen {
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		_stage.act(Gdx.graphics.getDeltaTime());
 
+//		System.out.println("pchan stage children:" + _stage.getActors().size);
 		GameState.getInstance().getActivePlayer().renderToScreen(_stage);
 		_stage.draw();
 	}

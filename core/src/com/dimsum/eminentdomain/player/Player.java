@@ -49,6 +49,10 @@ public class Player {
 		drawUp();
 	}
 	
+	public void addToStage(final Stage stage) {
+		_graphics.addToStage(stage);
+	}
+	
 	public void renderToScreen(final Stage stage) {
 		_graphics.draw(stage);
 	}
@@ -69,6 +73,10 @@ public class Player {
 	
 	public Card getTopDiscard() {
 		return _deck.getDiscardPile().isEmpty() ? null : _deck.getDiscardPile().get(_deck.getDiscardPile().size()-1);
+	}
+	
+	public boolean isDeckEmpty() {
+		return _deck.getDeckEmpty();
 	}
 	
 	protected void drawUp() {

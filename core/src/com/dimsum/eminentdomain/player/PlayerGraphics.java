@@ -1,5 +1,7 @@
 package com.dimsum.eminentdomain.player;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.dimsum.eminentdomain.cards.Card;
@@ -8,6 +10,9 @@ public class PlayerGraphics {
 
 	private Player _player;
 	private Group _hand;
+	
+	private Card _deckSprite;
+	private Card _discardSprite;
 
 	protected boolean _showHand;
 
@@ -16,10 +21,20 @@ public class PlayerGraphics {
 		this._showHand = false;
 
 		_hand = new Group();
+		_discardSprite = _player.getTopDiscard();
+		if (_discardSprite == null) _discardSprite = new Card();
+		_deckSprite = new Card();
 	}
 	
 	public void toggleShowHand() {
 		_showHand = !_showHand;
+	}
+	
+	public void addToStage(final Stage stage) {
+		stage.addActor(_discardSprite);
+		stage.addActor(_deckSprite);
+		
+		stage.addActor(_hand);
 	}
 	
 	public void draw(final Stage stage) {
@@ -28,14 +43,17 @@ public class PlayerGraphics {
 		int n = _player.getHand().size();
 		int i = 0;
 		
-		for (Card card : _player.getHand()) {
-			_hand.addActor(card);
-			if (n < stage.getWidth() / Card.cw) {
-				card.setPosition(stage.getWidth() / 2 - ((float) n / 2 - i) * Card.cw, 0);
-			} else {
-				card.setPosition(i * (stage.getWidth() - Card.cw) / (n - 1), 0);
+		if (_hand.getChildren().size != _player.getHand().size()) {
+			_hand.clear();
+			for (Card card : _player.getHand()) {
+				_hand.addActor(card);
+				if (n < stage.getWidth() / Card.cw) {
+					card.setPosition(stage.getWidth() / 2 - ((float) n / 2 - i) * Card.cw, 0);
+				} else {
+					card.setPosition(i * (stage.getWidth() - Card.cw) / (n - 1), 0);
+				}
+				++i;
 			}
-			++i;
 		}
 
 		if (_showHand) {
@@ -44,15 +62,16 @@ public class PlayerGraphics {
 			_hand.setPosition(0, -0.87f * Card.ch);
 		}
 		
-		Card topDiscard = _player.getTopDiscard();
-		if (topDiscard != null) {
-			topDiscard.setPosition(stage.getWidth()- 300, stage.getHeight()/2);
-			stage.addActor(topDiscard);
+		if (_player.getTopDiscard() != null) {
+			_discardSprite.setTexture(_player.getTopDiscard().getTexture());
 		} // TODO: add placeholder for empty discard pile
+		_discardSprite.setPosition(stage.getWidth() - 300, stage.getHeight()/2);
 		
 		
-		stage.addActor(_hand);
-		
+		if (!_player.isDeckEmpty()) {
+			_deckSprite.setTexture(new Texture(Gdx.files.internal("card_back.png")));
+		}
+		_deckSprite.setPosition(stage.getWidth() - 300, stage.getHeight()/2 - Card.ch);
 	}
 
 }
